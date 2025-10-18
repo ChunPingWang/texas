@@ -309,10 +309,10 @@ classDiagram
         +toString()
     }
     
-    Game ||--o{ Player : contains
-    Player ||--o| Hand : has
-    Hand ||--o{ Card : contains
-    Player ||--o{ Card : "hole cards"
+    Game "1" *-- "2..10" Player : contains
+    Player "1" *-- "1" Hand : has
+    Hand "1" *-- "5..7" Card : contains
+    Player "1" *-- "0..2" Card : hole cards
 ```
 
 ## BDD 開發流程說明
