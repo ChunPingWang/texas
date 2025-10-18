@@ -9,9 +9,10 @@
 - 🎯 **BDD 驅動開發**：使用中文 Gherkin 語法編寫業務場景
 - 🏗️ **三層式架構**：分離展示層、業務層、持久層
 - 📋 **SOLID 設計原則**：確保代碼可擴展性和可維護性
-- 🧪 **高測試覆蓋率**：97% BDD 測試通過率 (33/34 測試通過)
+- 🧪 **高測試覆蓋率**：100% BDD 測試通過率 (34/34 測試通過)
 - 🎮 **完整遊戲邏輯**：實現標準德州撲克規則
 - 🌍 **中文化支援**：完整的繁體中文介面和文檔
+- 📚 **API 文檔**：整合 Swagger/OpenAPI 3 提供完整的 RESTful API 文檔
 
 ## 情境說明
 
@@ -152,6 +153,7 @@ cd Holdem
 
 #### 4. 測試和驗證
 
+**單元測試與 BDD 測試**
 ```bash
 # 執行單元測試
 ./gradlew test
@@ -164,6 +166,145 @@ cd Holdem
 open build/reports/jacoco/test/html/index.html
 ```
 
+### API 文檔與測試指南
+
+#### 🔗 訪問 API 文檔
+
+**Swagger UI 介面**
+- **Swagger UI**: http://localhost:8080/swagger-ui.html （互動式 API 測試）
+- **OpenAPI JSON**: http://localhost:8080/v3/api-docs （JSON 格式規格）
+
+#### 📋 測試資料範例
+
+| 欄位 | 範例值 | 說明 |
+|------|--------|------|
+| playerNames | ["Alice", "Bob", "Charlie"] | 玩家姓名列表 (2-10人) |
+| smallBlind | 1.00 | 小盲注金額 |
+| bigBlind | 2.00 | 大盲注金額 (通常是小盲注2倍) |
+| initialChips | 1000.00 | 每位玩家初始籌碼 |
+| action | CALL, RAISE, FOLD, ALL_IN | 玩家動作類型 |
+
+#### 📚 API 端點說明
+
+**Game Management（遊戲管理）**
+- `POST /api/games` - 創建新遊戲
+- `GET /api/games/{gameId}` - 獲取遊戲狀態
+- `POST /api/games/{gameId}/start-hand` - 開始新一手牌
+
+**Player Actions（玩家動作）**
+- `POST /api/games/{gameId}/actions` - 執行玩家動作
+
+**Game Information（遊戲資訊）**
+- `GET /api/games/{gameId}/players` - 獲取玩家列表
+- `GET /api/games/{gameId}/finished` - 檢查遊戲結束狀態
+
+#### 🧪 完整遊戲流程測試
+
+**步驟 1: 創建遊戲**
+```bash
+# 創建一個 3 人遊戲
+response=$(curl -s -X POST http://localhost:8080/api/games \
+  -H "Content-Type: application/json" \
+  -d '{
+    "playerNames": ["Alice", "Bob", "Charlie"],
+    "smallBlind": 1.00,
+    "bigBlind": 2.00,
+    "initialChips": 1000.00
+  }')
+
+# 取得遊戲 ID
+gameId=$(echo $response | jq -r '.id')
+echo "遊戲 ID: $gameId"
+```
+
+**步驟 2: 開始新一手牌**
+```bash
+curl -X POST http://localhost:8080/api/games/$gameId/start-hand
+```
+
+**步驟 3: 執行玩家動作**
+```bash
+# Alice 跟注
+curl -X POST http://localhost:8080/api/games/$gameId/actions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "playerId": "alice",
+    "action": "CALL",
+    "amount": 2.00
+  }'
+
+# Bob 加注
+curl -X POST http://localhost:8080/api/games/$gameId/actions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "playerId": "bob",
+    "action": "RAISE",
+    "amount": 10.00
+  }'
+
+# Charlie 棄牌
+curl -X POST http://localhost:8080/api/games/$gameId/actions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "playerId": "charlie",
+    "action": "FOLD"
+  }'
+```
+
+**步驟 4: 查詢遊戲狀態**
+```bash
+curl -X GET http://localhost:8080/api/games/$gameId | jq '.'
+```
+
+#### 錯誤處理驗證
+
+**測試無效請求**
+```bash
+# 測試玩家數量過少
+curl -X POST http://localhost:8080/api/games \
+  -H "Content-Type: application/json" \
+  -d '{
+    "playerNames": ["Alice"],
+    "smallBlind": 1.00,
+    "bigBlind": 2.00,
+    "initialChips": 1000.00
+  }'
+# 預期回應: 400 Bad Request
+
+# 測試無效的下注動作
+curl -X POST http://localhost:8080/api/games/$gameId/actions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "playerId": "alice",
+    "action": "RAISE",
+    "amount": -10.00
+  }'
+# 預期回應: 400 Bad Request
+```
+
+#### API 回應驗證檢查清單
+
+✅ **成功回應檢查**
+- [ ] HTTP 狀態碼正確 (200, 201)
+- [ ] 回應包含正確的 JSON 結構
+- [ ] 遊戲狀態正確更新
+- [ ] 玩家籌碼計算正確
+- [ ] 底池金額正確累計
+
+#### ✅ **錯誤回應檢查**
+- [ ] HTTP 狀態碼正確 (400, 404, 500)
+- [ ] 錯誤訊息清楚描述問題
+- [ ] 驗證錯誤詳細列出欄位問題
+- [ ] 不會洩漏系統內部資訊
+
+#### 🎯 使用 Swagger UI 測試建議
+
+1. **開始測試**：啟動應用後訪問 http://localhost:8080/swagger-ui.html
+2. **測試順序**：建議按照 創建遊戲 → 開始新局 → 玩家動作 → 查詢狀態 的順序測試
+3. **記錄 ID**：每次創建遊戲後記錄返回的遊戲 ID，用於後續操作
+4. **錯誤測試**：故意輸入無效數據測試錯誤處理
+5. **狀態驗證**：每次操作後檢查遊戲狀態是否正確更新
+
 ## 技術說明
 
 ### 核心技術棧
@@ -173,6 +314,9 @@ open build/reports/jacoco/test/html/index.html
 | Java | 17 (LTS) | 程式語言 |
 | Spring Boot | 3.x | 應用框架 |
 | Spring Data JPA | 3.x | 資料持久化 |
+| Spring Validation | 3.x | 請求驗證 |
+| SpringDoc OpenAPI | 2.2.0 | API 文檔生成 |
+| Swagger UI | 集成 | 互動式 API 文檔 |
 | Gradle | 8.x | 建構工具 |
 | JUnit 5 | 5.x | 單元測試 |
 | Cucumber | 7.18.0 | BDD 測試 |
