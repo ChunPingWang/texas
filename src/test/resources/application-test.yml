@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: test
+    
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    
+logging:
+  level:
+    com.holdem: DEBUG
+    org.springframework: WARN
+    
+# 測試環境的遊戲配置
+holdem:
+  game:
+    min-players: 2
+    max-players: 10
+    default-small-blind: 10
+    default-big-blind: 20

@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: holdem-poker
+  profiles:
+    active: dev
+  
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        
+logging:
+  level:
+    com.holdem: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: INFO
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Texas Hold'em 遊戲配置
+holdem:
+  game:
+    min-players: 2
+    max-players: 10
+    default-small-blind: 10
+    default-big-blind: 20
+    action-timeout-seconds: 30
+    reconnection-timeout-seconds: 60

@@ -1,0 +1,282 @@
+
+Q場景: 翻牌前下注行動       [90m# features/betting-system.feature:7[0m
+�  [32m假設[0m[32m所有玩家都已收到底牌[0m    [90m# com.holdem.bdd.steps.BettingSystemSteps.所有玩家都已收到底牌()[0m
+�  [32m而且[0m[32m輪到大盲注後一位玩家行動[0m  [90m# com.holdem.bdd.steps.BettingSystemSteps.輪到大盲注後一位玩家行動()[0m
+�  [32m當[0m[32m該玩家面臨行動選擇時[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.該玩家面臨行動選擇時()[0m
+�  [32m那麼[0m[32m玩家可以選擇棄牌[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家可以選擇棄牌()[0m
+�  [32m而且[0m[32m玩家可以選擇跟注大盲注金額[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家可以選擇跟注大盲注金額()[0m
+�  [32m而且[0m[32m玩家可以選擇加注[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家可以選擇加注()[0m
+�  [32m而且[0m[32m玩家可以選擇全押[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家可以選擇全押()[0m
+
+[場景: 加注規則驗證                   [90m# features/betting-system.feature:16[0m
+�  [32m假設[0m[32m一位玩家選擇加注[0m                 [90m# com.holdem.bdd.steps.BettingSystemSteps.一位玩家選擇加注()[0m
+�  [32m而且[0m[32m當前輪次的最小加注金額是 [0m[32m[1m20[0m          [90m# com.holdem.bdd.steps.BettingSystemSteps.當前輪次的最小加注金額是(int)[0m
+�  [32m當[0m[32m執行加注行動時[0m                   [90m# com.holdem.bdd.steps.BettingSystemSteps.執行加注行動時()[0m
+�  [32m那麼[0m[32m加注金額必須等於或超過本輪最後的加注金額[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.加注金額必須等於或超過本輪最後的加注金額()[0m
+�  [32m而且[0m[32m如果本輪沒有人加注過，加注金額必須大於等於大盲注[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.如果本輪沒有人加注過加注金額必須大於等於大盲注()[0m
+�  [32m而且[0m[32m系統應該更新當前最高下注金額[0m           [90m# com.holdem.bdd.steps.BettingSystemSteps.系統應該更新當前最高下注金額()[0m
+�  [32m而且[0m[32m其他玩家需要至少跟注到新的金額[0m          [90m# com.holdem.bdd.steps.BettingSystemSteps.其他玩家需要至少跟注到新的金額()[0m
+
+R場景: 跟注行動處理          [90m# features/betting-system.feature:25[0m
+�  [32m假設[0m[32m有玩家已經下注 [0m[32m[1m50[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.有玩家已經下注(int)[0m
+�  [32m而且[0m[32m輪到下一位玩家行動[0m       [90m# com.holdem.bdd.steps.BettingSystemSteps.輪到下一位玩家行動()[0m
+�  [32m當[0m[32m該玩家選擇跟注時[0m         [90m# com.holdem.bdd.steps.BettingSystemSteps.該玩家選擇跟注時()[0m
+�  [32m那麼[0m[32m玩家應該支付 [0m[32m[1m50[0m[32m 籌碼[0m    [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家應該支付籌碼(int)[0m
+�  [32m而且[0m[32m玩家的籌碼應該相應減少[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家的籌碼應該相應減少()[0m
+�  [32m而且[0m[32m底池應該增加相應金額[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.底池應該增加相應金額()[0m
+�  [32m而且[0m[32m玩家狀態應該保持 ACTIVE[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家狀態應該保持ACTIVE()[0m
+
+]場景: 全押行動處理                     [90m# features/betting-system.feature:34[0m
+�  [32m假設[0m[32m一位玩家剩餘籌碼少於當前下注金額[0m           [90m# com.holdem.bdd.steps.BettingSystemSteps.一位玩家剩餘籌碼少於當前下注金額()[0m
+�  [32m而且[0m[32m該玩家選擇全押[0m                    [90m# com.holdem.bdd.steps.BettingSystemSteps.該玩家選擇全押()[0m
+�  [32m當[0m[32m執行全押行動時[0m                     [90m# com.holdem.bdd.steps.BettingSystemSteps.執行全押行動時()[0m
+�  [32m那麼[0m[32m玩家應該投入所有剩餘籌碼[0m               [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家應該投入所有剩餘籌碼()[0m
+�  [32m而且[0m[32m玩家狀態應該變為 ALL_IN[0m            [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家狀態應該變為ALL_IN()[0m
+�  [32m而且[0m[32m底池應該增加玩家的所有籌碼[0m              [90m# com.holdem.bdd.steps.BettingSystemSteps.底池應該增加玩家的所有籌碼()[0m
+�  [32m而且[0m[32m如果全押金額少於當前下注，不會影響其他玩家的跟注金額[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.如果全押金額少於當前下注不會影響其他玩家的跟注金額()[0m
+
+R場景: 棄牌行動處理          [90m# features/betting-system.feature:43[0m
+�  [32m假設[0m[32m輪到一位玩家行動[0m        [90m# com.holdem.bdd.steps.BettingSystemSteps.輪到一位玩家行動()[0m
+�  [32m當[0m[32m該玩家選擇棄牌時[0m         [90m# com.holdem.bdd.steps.BettingSystemSteps.該玩家選擇棄牌時()[0m
+�  [32m那麼[0m[32m玩家狀態應該變為 FOLDED[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家狀態應該變為FOLDED()[0m
+�  [32m而且[0m[32m玩家的底牌應該被棄置[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家的底牌應該被棄置()[0m
+�  [32m而且[0m[32m玩家不再參與本輪競爭[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家不再參與本輪競爭()[0m
+�  [32m而且[0m[32m行動轉移到下一位玩家[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.行動轉移到下一位玩家()[0m
+
+^場景: 無效下注金額處理                [90m# features/betting-system.feature:51[0m
+�  [32m假設[0m[32m輪到玩家下注[0m                  [90m# com.holdem.bdd.steps.BettingSystemSteps.輪到玩家下注()[0m
+�  [32m當[0m[32m玩家輸入無效的下注金額[0m              [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家輸入無效的下注金額()[0m
+�  [32m那麼[0m[32m系統應該顯示錯誤訊息 [0m[32m[1m"請輸入有效的下注金額"[0m [90m# com.holdem.bdd.steps.CommonSteps.系統應該顯示錯誤訊息(java.lang.String)[0m
+�  [32m而且[0m[32m不應該從玩家扣除任何籌碼[0m            [90m# com.holdem.bdd.steps.BettingSystemSteps.不應該從玩家扣除任何籌碼()[0m
+�  [32m而且[0m[32m玩家應該被要求重新選擇行動[0m           [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家應該被要求重新選擇行動()[0m
+
+Z場景: 籌碼不足下注處理            [90m# features/betting-system.feature:58[0m
+�  [32m假設[0m[32m輪到玩家下注[0m              [90m# com.holdem.bdd.steps.BettingSystemSteps.輪到玩家下注()[0m
+�  [32m而且[0m[32m玩家剩餘籌碼少於想要下注的金額[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家剩餘籌碼少於想要下注的金額()[0m
+�  [32m當[0m[32m玩家選擇的下注金額超過剩餘籌碼時[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.玩家選擇的下注金額超過剩餘籌碼時()[0m
+�  [32m那麼[0m[32m系統應該提示 [0m[32m[1m"籌碼不足，是否全押？"[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.系統應該提示(java.lang.String)[0m
+�  [32m而且[0m[32m給予玩家重新選擇的機會[0m         [90m# com.holdem.bdd.steps.BettingSystemSteps.給予玩家重新選擇的機會()[0m
+�  [32m而且[0m[32m如果玩家確認，則執行全押行動[0m      [90m# com.holdem.bdd.steps.BettingSystemSteps.如果玩家確認則執行全押行動()[0m
+	
+	W場景: 下注輪次結束判定         [90m# features/betting-system.feature:66[0m
+	�  [32m假設[0m[32m所有未棄牌的玩家都已行動[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.所有未棄牌的玩家都已行動()[0m
+	�  [32m而且[0m[32m所有玩家的下注金額都相等[0m     [90m# com.holdem.bdd.steps.BettingSystemSteps.所有玩家的下注金額都相等()[0m
+	�  [32m當[0m[32m檢查下注輪次狀態時[0m         [90m# com.holdem.bdd.steps.BettingSystemSteps.檢查下注輪次狀態時()[0m
+	�  [32m那麼[0m[32m下注輪次應該結束[0m         [90m# com.holdem.bdd.steps.BettingSystemSteps.下注輪次應該結束()[0m
+	�  [32m而且[0m[32m遊戲應該進入下一階段[0m       [90m# com.holdem.bdd.steps.BettingSystemSteps.遊戲應該進入下一階段()[0m
+	�  [32m而且[0m[32m所有玩家的當前下注應該重置為 0[0m [90m# com.holdem.bdd.steps.BettingSystemSteps.所有玩家的當前下注應該重置為0()[0m
+
+
+
+W場景: 正常雙盲注系統設定         [90m# features/blind-system.feature:7[0m
+
+�  [32m假設[0m[32m遊戲已初始化完成[0m          [90m# com.holdem.bdd.steps.BlindSystemSteps.遊戲已初始化完成()[0m
+
+�  [32m而且[0m[32m有莊家按鈕標記莊家位置[0m       [90m# com.holdem.bdd.steps.BlindSystemSteps.有莊家按鈕標記莊家位置()[0m
+
+�  [32m而且[0m[32m遊戲中有 [0m[32m[1m4[0m[32m 位玩家[0m        [90m# com.holdem.bdd.steps.BlindSystemSteps.遊戲中有位玩家(int)[0m
+
+�  [32m當[0m[32m新的一手牌開始時[0m           [90m# com.holdem.bdd.steps.BlindSystemSteps.新的一手牌開始時()[0m
+
+�  [32m那麼[0m[32m莊家順時針下一位玩家應該支付小盲注[0m [90m# com.holdem.bdd.steps.BlindSystemSteps.莊家順時針下一位玩家應該支付小盲注()[0m
+
+�  [32m而且[0m[32m小盲注下一位玩家應該支付大盲注[0m   [90m# com.holdem.bdd.steps.BlindSystemSteps.小盲注下一位玩家應該支付大盲注()[0m
+
+�  [32m而且[0m[32m大盲注金額應該等於最小下注金額[0m   [90m# com.holdem.bdd.steps.BlindSystemSteps.大盲注金額應該等於最小下注金額()[0m
+
+�  [32m而且[0m[32m小盲注金額應該是大盲注的一半[0m    [90m# com.holdem.bdd.steps.BlindSystemSteps.小盲注金額應該是大盲注的一半()[0m
+
+K場景: Heads-up 特殊規則  [90m# features/blind-system.feature:17[0m
+�  [32m假設[0m[32m只剩下兩位玩家進行一對一對戰[0m [90m# com.holdem.bdd.steps.BlindSystemSteps.只剩下兩位玩家進行一對一對戰()[0m
+{  [32m當[0m[32m進入 heads-up 模式時[0m [90m# com.holdem.bdd.steps.BlindSystemSteps.進入headsup模式時()[0m
+�  [32m那麼[0m[32m莊家應該支付小盲注[0m      [90m# com.holdem.bdd.steps.BlindSystemSteps.莊家應該支付小盲注()[0m
+�  [32m而且[0m[32m對手應該支付大盲注[0m      [90m# com.holdem.bdd.steps.BlindSystemSteps.對手應該支付大盲注()[0m
+�  [32m而且[0m[32m第一輪應該由莊家先下注[0m    [90m# com.holdem.bdd.steps.BlindSystemSteps.第一輪應該由莊家先下注()[0m
+�  [32m而且[0m[32m翻牌後輪次應該由大盲注先下注[0m [90m# com.holdem.bdd.steps.BlindSystemSteps.翻牌後輪次應該由大盲注先下注()[0m
+
+W場景: 玩家籌碼不足支付盲注     [90m# features/blind-system.feature:25[0m
+�  [32m假設[0m[32m遊戲已初始化完成[0m       [90m# com.holdem.bdd.steps.BlindSystemSteps.遊戲已初始化完成()[0m
+�  [32m而且[0m[32m有莊家按鈕標記莊家位置[0m    [90m# com.holdem.bdd.steps.BlindSystemSteps.有莊家按鈕標記莊家位置()[0m
+�  [32m而且[0m[32m一位玩家的籌碼少於大盲注金額[0m [90m# com.holdem.bdd.steps.BlindSystemSteps.一位玩家的籌碼少於大盲注金額()[0m
+�  [32m當[0m[32m輪到該玩家支付大盲注時[0m     [90m# com.holdem.bdd.steps.BlindSystemSteps.輪到該玩家支付大盲注時()[0m
+�  [32m那麼[0m[32m該玩家應該全押[0m        [90m# com.holdem.bdd.steps.BlindSystemSteps.該玩家應該全押()[0m
+�  [32m而且[0m[32m投入所有剩餘籌碼[0m       [90m# com.holdem.bdd.steps.BlindSystemSteps.投入所有剩餘籌碼()[0m
+�  [32m而且[0m[32m系統應該相應調整底池計算[0m   [90m# com.holdem.bdd.steps.BlindSystemSteps.系統應該相應調整底池計算()[0m
+�  [32m而且[0m[32m玩家狀態應該變為全押狀態[0m   [90m# com.holdem.bdd.steps.BlindSystemSteps.玩家狀態應該變為全押狀態()[0m
+
+N場景: 底牌發放             [90m# features/dealing-system.feature:7[0m
+�  [32m假設[0m[32m盲注已經收取完畢[0m         [90m# com.holdem.bdd.steps.DealingSystemSteps.盲注已經收取完畢()[0m
+�  [32m而且[0m[32m牌已經洗好並切牌完成[0m       [90m# com.holdem.bdd.steps.DealingSystemSteps.牌已經洗好並切牌完成()[0m
+�  [32m當[0m[32m開始發放底牌時[0m           [90m# com.holdem.bdd.steps.DealingSystemSteps.開始發放底牌時()[0m
+�  [32m那麼[0m[32m發牌應該從小盲注玩家開始[0m     [90m# com.holdem.bdd.steps.DealingSystemSteps.發牌應該從小盲注玩家開始()[0m
+�  [32m而且[0m[32m按順時針方向進行[0m         [90m# com.holdem.bdd.steps.DealingSystemSteps.按順時針方向進行()[0m
+�  [32m而且[0m[32m每輪發一張牌，共發兩輪[0m      [90m# com.holdem.bdd.steps.DealingSystemSteps.每輪發一張牌共發兩輪()[0m
+�  [32m而且[0m[32m每位玩家應該收到兩張面朝下的底牌[0m [90m# com.holdem.bdd.steps.DealingSystemSteps.每位玩家應該收到兩張面朝下的底牌()[0m
+
+S場景: 公共牌發放流程        [90m# features/dealing-system.feature:16[0m
+�  [32m假設[0m[32m翻牌前下注已經結束[0m      [90m# com.holdem.bdd.steps.DealingSystemSteps.翻牌前下注已經結束()[0m
+�  [32m而且[0m[32m至少有兩位玩家沒有棄牌[0m    [90m# com.holdem.bdd.steps.DealingSystemSteps.至少有兩位玩家沒有棄牌()[0m
+�  [32m當[0m[32m進入翻牌階段時[0m         [90m# com.holdem.bdd.steps.DealingSystemSteps.進入翻牌階段時()[0m
+�  [32m那麼[0m[32m荷官應該先銷毀一張牌[0m     [90m# com.holdem.bdd.steps.DealingSystemSteps.荷官應該先銷毀一張牌()[0m
+�  [32m而且[0m[32m同時翻開三張公共牌[0m      [90m# com.holdem.bdd.steps.DealingSystemSteps.同時翻開三張公共牌()[0m
+�  [32m當[0m[32m翻牌下注結束並進入轉牌時[0m    [90m# com.holdem.bdd.steps.DealingSystemSteps.翻牌下注結束並進入轉牌時()[0m
+�  [32m那麼[0m[32m荷官應該再銷毀一張牌[0m     [90m# com.holdem.bdd.steps.DealingSystemSteps.荷官應該再銷毀一張牌()[0m
+�  [32m而且[0m[32m發放一張轉牌（第四張公共牌）[0m [90m# com.holdem.bdd.steps.DealingSystemSteps.發放一張轉牌第四張公共牌()[0m
+�  [32m當[0m[32m轉牌下注結束並進入河牌時[0m    [90m# com.holdem.bdd.steps.DealingSystemSteps.轉牌下注結束並進入河牌時()[0m
+�  [32m那麼[0m[32m荷官應該再銷毀一張牌[0m     [90m# com.holdem.bdd.steps.DealingSystemSteps.荷官應該再銷毀一張牌()[0m
+�  [32m而且[0m[32m發放一張河牌（第五張公共牌）[0m [90m# com.holdem.bdd.steps.DealingSystemSteps.發放一張河牌第五張公共牌()[0m
+
+M場景: 發牌錯誤處理     [90m# features/dealing-system.feature:29[0m
+~  [32m假設[0m[32m發牌正在進行中[0m    [90m# com.holdem.bdd.steps.DealingSystemSteps.發牌正在進行中()[0m
+�  [32m當[0m[32m發現發牌順序錯誤時[0m   [90m# com.holdem.bdd.steps.DealingSystemSteps.發現發牌順序錯誤時()[0m
+�  [32m那麼[0m[32m發牌應該立即停止[0m   [90m# com.holdem.bdd.steps.DealingSystemSteps.發牌應該立即停止()[0m
+~  [32m而且[0m[32m牌應該重新洗牌[0m    [90m# com.holdem.bdd.steps.DealingSystemSteps.牌應該重新洗牌()[0m
+�  [32m而且[0m[32m該輪發牌應該重新開始[0m [90m# com.holdem.bdd.steps.DealingSystemSteps.該輪發牌應該重新開始()[0m
+
+Z場景: 牌不足處理                     [90m# features/dealing-system.feature:36[0m
+�  [32m假設[0m[32m遊戲正在進行中[0m                   [90m# com.holdem.bdd.steps.DealingSystemSteps.遊戲正在進行中()[0m
+�  [32m當[0m[32m剩餘牌數不足以完成該手牌時[0m              [90m# com.holdem.bdd.steps.DealingSystemSteps.剩餘牌數不足以完成該手牌時()[0m
+�  [32m那麼[0m[32m系統應該顯示錯誤訊息 [0m[32m[1m"牌組不足，無法完成該手牌"[0m [90m# com.holdem.bdd.steps.CommonSteps.系統應該顯示錯誤訊息(java.lang.String)[0m
+�  [32m而且[0m[32m該手牌應該宣布無效[0m                 [90m# com.holdem.bdd.steps.DealingSystemSteps.該手牌應該宣布無效()[0m
+�  [32m而且[0m[32m所有下注應該退還給玩家[0m               [90m# com.holdem.bdd.steps.DealingSystemSteps.所有下注應該退還給玩家()[0m
+
+Y場景: 成功初始化 2-10 人遊戲 [90m# features/game-initialization.feature:7[0m
+�  [32m假設[0m[32m系統已準備標準 52 張牌組[0m [90m# com.holdem.bdd.steps.GameInitializationSteps.系統已準備標準52張牌組()[0m
+�  [32m當[0m[32m[0m[32m[1m2[0m[32m 到 [0m[32m[1m10[0m[32m 位玩家加入遊戲時[0m [90m# com.holdem.bdd.steps.GameInitializationSteps.玩家加入遊戲(int,int)[0m
+�  [32m而且[0m[32m座位被隨機分配[0m        [90m# com.holdem.bdd.steps.GameInitializationSteps.座位被隨機分配()[0m
+�  [32m而且[0m[32m第一個莊家位置被決定[0m     [90m# com.holdem.bdd.steps.GameInitializationSteps.第一個莊家位置被決定()[0m
+�  [32m那麼[0m[32m遊戲應該成功初始化[0m      [90m# com.holdem.bdd.steps.GameInitializationSteps.遊戲應該成功初始化()[0m
+�  [32m而且[0m[32m所有玩家應該有明確的座位順序[0m [90m# com.holdem.bdd.steps.GameInitializationSteps.所有玩家應該有明確的座位順序()[0m
+�  [32m而且[0m[32m莊家按鈕應該正確放置[0m     [90m# com.holdem.bdd.steps.GameInitializationSteps.莊家按鈕應該正確放置()[0m
+
+j場景: 透過抽牌決定初始座位順序           [90m# features/game-initialization.feature:16[0m
+�  [32m假設[0m[32m需要決定初始座位順序[0m             [90m# com.holdem.bdd.steps.GameInitializationSteps.需要決定初始座位順序()[0m
+�  [32m當[0m[32m每位玩家抽取一張牌進行比較時[0m          [90m# com.holdem.bdd.steps.GameInitializationSteps.每位玩家抽取一張牌進行比較()[0m
+�  [32m那麼[0m[32m拿到最大牌的玩家應該成為第一個莊家[0m      [90m# com.holdem.bdd.steps.GameInitializationSteps.拿到最大牌的玩家應該成為第一個莊家()[0m
+�  [32m而且[0m[32m當兩位或更多玩家拿到相同牌值時，應該重新抽牌[0m [90m# com.holdem.bdd.steps.GameInitializationSteps.當玩家拿到相同牌值時應該重新抽牌()[0m
+
+i場景: 玩家人數不足                            [90m# features/game-initialization.feature:22[0m
+�  [32m假設[0m[32m系統已準備標準 52 張牌組[0m                    [90m# com.holdem.bdd.steps.GameInitializationSteps.系統已準備標準52張牌組()[0m
+�  [32m當[0m[32m只有 [0m[32m[1m1[0m[32m 位玩家加入遊戲時[0m                      [90m# com.holdem.bdd.steps.GameInitializationSteps.只有玩家加入遊戲(int)[0m
+�  [32m那麼[0m[32m遊戲初始化應該失敗並顯示錯誤訊息 [0m[32m[1m"德州撲克至少需要 2 位玩家"[0m [90m# com.holdem.bdd.steps.GameInitializationSteps.遊戲初始化應該失敗並顯示錯誤訊息(java.lang.String)[0m
+�  [32m而且[0m[32m遊戲不應該開始[0m                           [90m# com.holdem.bdd.steps.GameInitializationSteps.遊戲不應該開始()[0m
+
+j場景: 玩家人數過多                             [90m# features/game-initialization.feature:28[0m
+�  [32m假設[0m[32m系統已準備標準 52 張牌組[0m                     [90m# com.holdem.bdd.steps.GameInitializationSteps.系統已準備標準52張牌組()[0m
+�  [32m當[0m[32m超過 [0m[32m[1m10[0m[32m 位玩家嘗試加入遊戲時[0m                    [90m# com.holdem.bdd.steps.GameInitializationSteps.超過玩家嘗試加入遊戲(int)[0m
+�  [32m那麼[0m[32m遊戲初始化應該失敗並顯示錯誤訊息 [0m[32m[1m"德州撲克最多支援 10 位玩家"[0m [90m# com.holdem.bdd.steps.GameInitializationSteps.遊戲初始化應該失敗並顯示錯誤訊息(java.lang.String)[0m
+�  [32m而且[0m[32m多餘的玩家不應該能夠加入遊戲[0m                     [90m# com.holdem.bdd.steps.GameInitializationSteps.多餘的玩家不應該能夠加入遊戲()[0m
+
+[場景: 皇家同花順判定                [90m# features/hand-evaluation.feature:7[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ K♠"[0m         [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"Q♠ J♠ 10♠ 5♥ 2♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"皇家同花順"[0m          [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m牌型強度應該是最高等級[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型強度應該是最高等級()[0m
+
+W場景: 同花順判定                 [90m# features/hand-evaluation.feature:14[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"9♠ 8♠"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"7♠ 6♠ 5♠ A♥ K♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"同花順"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m關鍵牌應該是 [0m[32m[1m"9"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.關鍵牌應該是(java.lang.String)[0m
+
+U場景: 四條判定                  [90m# features/hand-evaluation.feature:21[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ A♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"A♣ A♦ K♠ Q♥ J♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"四條"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m四條牌值應該是 [0m[32m[1m"A"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.四條牌值應該是(java.lang.String)[0m
+�  [32m而且[0m[32m踢腳牌應該是 [0m[32m[1m"K"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.踢腳牌應該是(java.lang.String)[0m
+
+U場景: 葫蘆判定                  [90m# features/hand-evaluation.feature:29[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"K♠ K♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"K♣ 3♦ 3♠ Q♥ J♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"葫蘆"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m三條牌值應該是 [0m[32m[1m"K"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.三條牌值應該是(java.lang.String)[0m
+�  [32m而且[0m[32m對子牌值應該是 [0m[32m[1m"3"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.對子牌值應該是(java.lang.String)[0m
+
+U場景: 同花判定                  [90m# features/hand-evaluation.feature:37[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ 9♠"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"K♠ Q♠ 7♠ 5♥ 2♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"同花"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m關鍵牌應該依序是 [0m[32m[1m"A K Q 9 7"[0m  [90m# com.holdem.bdd.steps.HandEvaluationSteps.關鍵牌應該依序是(java.lang.String)[0m
+
+U場景: 順子判定                  [90m# features/hand-evaluation.feature:44[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ 2♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"3♣ 4♦ 5♠ K♥ Q♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"順子"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m關鍵牌應該是 [0m[32m[1m"5"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.關鍵牌應該是(java.lang.String)[0m
+
+U場景: 三條判定                  [90m# features/hand-evaluation.feature:51[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"Q♠ Q♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"Q♣ K♦ J♠ 9♥ 7♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"三條"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m三條牌值應該是 [0m[32m[1m"Q"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.三條牌值應該是(java.lang.String)[0m
+�  [32m而且[0m[32m踢腳牌應該依序是 [0m[32m[1m"K J"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.踢腳牌應該依序是(java.lang.String)[0m
+
+U場景: 兩對判定                  [90m# features/hand-evaluation.feature:59[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ K♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"A♣ K♦ Q♠ 7♥ 5♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"兩對"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m高對牌值應該是 [0m[32m[1m"A"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.高對牌值應該是(java.lang.String)[0m
+�  [32m而且[0m[32m低對牌值應該是 [0m[32m[1m"K"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.低對牌值應該是(java.lang.String)[0m
+�  [32m而且[0m[32m踢腳牌應該是 [0m[32m[1m"Q"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.踢腳牌應該是(java.lang.String)[0m
+
+U場景: 一對判定                  [90m# features/hand-evaluation.feature:68[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ A♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"K♣ Q♦ J♠ 9♥ 7♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"一對"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m對子牌值應該是 [0m[32m[1m"A"[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.對子牌值應該是(java.lang.String)[0m
+�  [32m而且[0m[32m踢腳牌應該依序是 [0m[32m[1m"K Q J"[0m      [90m# com.holdem.bdd.steps.HandEvaluationSteps.踢腳牌應該依序是(java.lang.String)[0m
+
+U場景: 高牌判定                  [90m# features/hand-evaluation.feature:76[0m
+�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ K♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+�  [32m而且[0m[32m公共牌為 [0m[32m[1m"Q♣ J♦ 9♠ 7♥ 5♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"高牌"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+�  [32m而且[0m[32m關鍵牌應該依序是 [0m[32m[1m"A K Q J 9"[0m  [90m# com.holdem.bdd.steps.HandEvaluationSteps.關鍵牌應該依序是(java.lang.String)[0m
+
+s場景: 牌型強度比較 - 同類型牌型                        [90m# features/hand-evaluation.feature:83[0m
+�  [32m假設[0m[32m玩家A持有 [0m[32m[1m"A♠ A♥"[0m[32m 底牌和公共牌 [0m[32m[1m"Q♣ J♦ 8♠ 5♥ 3♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A持有底牌和公共牌(java.lang.String,java.lang.String)[0m
+�  [32m而且[0m[32m玩家B持有 [0m[32m[1m"K♠ K♥"[0m[32m 底牌和相同公共牌[0m                [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家B持有底牌和相同公共牌(java.lang.String)[0m
+�  [32m當[0m[32m系統比較兩位玩家的牌型強度時[0m                         [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統比較兩位玩家的牌型強度時()[0m
+�  [32m那麼[0m[32m玩家A應該勝過玩家B[0m                            [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A應該勝過玩家B()[0m
+�  [32m而且[0m[32m勝利原因應該是 [0m[32m[1m"對子牌值較高"[0m                      [90m# com.holdem.bdd.steps.HandEvaluationSteps.勝利原因應該是(java.lang.String)[0m
+ 
+ `場景: 牌型強度比較 - 不同類型牌型  [90m# features/hand-evaluation.feature:90[0m
+ �  [32m假設[0m[32m玩家A持有三條Q的牌型[0m      [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A持有三條Q的牌型()[0m
+ �  [32m而且[0m[32m玩家B持有兩對A和K的牌型[0m    [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家B持有兩對A和K的牌型()[0m
+ �  [32m當[0m[32m系統比較兩位玩家的牌型強度時[0m    [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統比較兩位玩家的牌型強度時()[0m
+ �  [32m那麼[0m[32m玩家A應該勝過玩家B[0m       [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A應該勝過玩家B()[0m
+ �  [32m而且[0m[32m勝利原因應該是 [0m[32m[1m"牌型等級較高"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.勝利原因應該是(java.lang.String)[0m
+!
+!Z場景: 平手情況判定                 [90m# features/hand-evaluation.feature:97[0m
+!�  [32m假設[0m[32m玩家A持有底牌 [0m[32m[1m"A♠ 2♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A持有底牌(java.lang.String)[0m
+!�  [32m而且[0m[32m玩家B持有底牌 [0m[32m[1m"A♣ 3♦"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家B持有底牌(java.lang.String)[0m
+!�  [32m而且[0m[32m公共牌為 [0m[32m[1m"K♠ Q♥ J♣ 10♦ 9♠"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+!�  [32m當[0m[32m系統比較兩位玩家的牌型強度時[0m          [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統比較兩位玩家的牌型強度時()[0m
+!�  [32m那麼[0m[32m結果應該是平手[0m                [90m# com.holdem.bdd.steps.HandEvaluationSteps.結果應該是平手()[0m
+!�  [32m而且[0m[32m兩位玩家應該平分獎池[0m             [90m# com.holdem.bdd.steps.HandEvaluationSteps.兩位玩家應該平分獎池()[0m
+"
+"X場景: 踢腳牌決勝                 [90m# features/hand-evaluation.feature:105[0m
+"�  [32m假設[0m[32m玩家A持有底牌 [0m[32m[1m"A♠ K♥"[0m       [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A持有底牌(java.lang.String)[0m
+"�  [32m而且[0m[32m玩家B持有底牌 [0m[32m[1m"A♣ Q♦"[0m       [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家B持有底牌(java.lang.String)[0m
+"�  [32m而且[0m[32m公共牌為 [0m[32m[1m"A♦ J♠ 9♥ 7♣ 5♠"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+"�  [32m當[0m[32m系統比較兩位玩家的牌型強度時[0m         [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統比較兩位玩家的牌型強度時()[0m
+"�  [32m那麼[0m[32m玩家A應該勝過玩家B[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家A應該勝過玩家B()[0m
+"�  [32m而且[0m[32m勝利原因應該是 [0m[32m[1m"踢腳牌較高"[0m       [90m# com.holdem.bdd.steps.HandEvaluationSteps.勝利原因應該是(java.lang.String)[0m
+#
+#V場景: A-2-3-4-5 低順判定        [90m# features/hand-evaluation.feature:113[0m
+#�  [32m假設[0m[32m玩家持有底牌 [0m[32m[1m"A♠ 2♥"[0m        [90m# com.holdem.bdd.steps.HandEvaluationSteps.玩家持有底牌(java.lang.String)[0m
+#�  [32m而且[0m[32m公共牌為 [0m[32m[1m"3♣ 4♦ 5♠ K♥ Q♣"[0m [90m# com.holdem.bdd.steps.HandEvaluationSteps.公共牌為(java.lang.String)[0m
+#�  [32m當[0m[32m系統計算玩家的最佳牌型時[0m           [90m# com.holdem.bdd.steps.HandEvaluationSteps.系統計算玩家的最佳牌型時()[0m
+#�  [32m那麼[0m[32m牌型應該是 [0m[32m[1m"順子"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.牌型應該是(java.lang.String)[0m
+#�  [32m而且[0m[32m關鍵牌應該是 [0m[32m[1m"5"[0m            [90m# com.holdem.bdd.steps.HandEvaluationSteps.關鍵牌應該是(java.lang.String)[0m
+#�  [32m而且[0m[32mA應該被視為低牌[0m              [90m# com.holdem.bdd.steps.HandEvaluationSteps.A應該被視為低牌()[0m
